@@ -45,8 +45,9 @@ class App extends Component {
 
     // render() is executed on load
     render() {
-        const buttonStyle = {
-            backgroundColor: 'skyblue',
+        const style = {
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
@@ -71,6 +72,8 @@ class App extends Component {
                     }
                 </div>
             ); // this.state.persons = person in the function
+
+            style.backgroundColor = 'red'; // when state.showPersons === false, change to red
         }
         console.log(this.state.persons);
 
@@ -79,7 +82,7 @@ class App extends Component {
             <h1>Hi, I'm a react App</h1>
             <p>This is really working!</p>
             <button
-                style={buttonStyle}
+                style={style}
                 onClick={this.togglePersonsHandler}>Toggle Persons</button>
             {persons}
         </div>
