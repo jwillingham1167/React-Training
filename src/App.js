@@ -5,24 +5,18 @@ import Person from './Person/Person';
 class App extends Component {
     state = {
         persons: [
-            { name: 'Max', age: 28 },
-            { name: 'Manu', age: 29 },
-            { name: 'Stephanie', age: 26 }
+            { id: 5342, name: 'Max', age: 28 },
+            { id: 2432, name: 'Manu', age: 29 },
+            { id: 233423, name: 'Stephanie', age: 26 }
         ],
         showPersons: false
     }
 
-    switchNameHandler = (newName) => {
-        // console.log('OIOIOI');
-        // DON'T DO THIS: this.state.persons[1].name = 'Maximilian';
-        this.setState({
-            persons: [
-                { name: newName, age: 28 },
-                { name: 'Manu', age: 29 },
-                { name: 'Stephanie', age: 27 }
-            ],
-            otherState: 'some State!'
-        })
+    deletePersonHandler = (personIndex) => {
+        // const persons = this.state.persons.slice();
+        const persons = [...this.state.persons];
+        persons.splice(personIndex, 1);
+        this.setState({persons: persons});
     }
 
     nameChangedHandler = (event) => {
@@ -52,17 +46,19 @@ class App extends Component {
 
         let persons = null;
 
+        // () => refers to function so run on click instead of run on render
         if (this.state.showPersons === true) {
             persons = (
                 <div>
                     {
-                        this.state.persons.map((person) => {
-                            return <Person name={person.name} age={person.age} />
+                        this.state.persons.map((person, index) => {
+                            return <Person click={() => this.deletePersonHandler(index)} name={person.name} age={person.age} key={person.id} />
                         })
                     }
                 </div>
-            );
+            ); // this.state.persons = person in the function
         }
+        console.log(this.state.persons);
 
         return (
         <div className="App">
