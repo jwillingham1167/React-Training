@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -73,14 +74,23 @@ class App extends Component {
                 </div>
             ); // this.state.persons = person in the function
 
-            style.backgroundColor = 'red'; // when state.showPersons === false, change to red
+            style.backgroundColor = 'red';
+
         }
         console.log(this.state.persons);
+
+        const classes = [];
+        if (this.state.persons.length <= 2) {
+            classes.push('red'); // classes = ['red']
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold'); // classes = ['red', 'bold'], need to add .join(' ') on the {classes} below to remove comma between array items
+        }
 
         return (
         <div className="App">
             <h1>Hi, I'm a react App</h1>
-            <p>This is really working!</p>
+            <p className={classes.join(' ')}>This is really working!</p>
             <button
                 style={style}
                 onClick={this.togglePersonsHandler}>Toggle Persons</button>
@@ -91,4 +101,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Radium(App);
